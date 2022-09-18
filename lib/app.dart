@@ -1,4 +1,3 @@
-import 'package:doctor_plus_app/views/content/content_page.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_plus_app/views/content/login_screen.dart';
 
