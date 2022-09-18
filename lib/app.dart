@@ -1,5 +1,6 @@
 import 'package:doctor_plus_app/views/content/content_page.dart';
 import 'package:flutter/material.dart';
+import 'package:doctor_plus_app/views/content/login_screen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: ContentPage(),
+      home: LoginScreen(),
     );
   }
 }
