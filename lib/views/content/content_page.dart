@@ -1,7 +1,7 @@
-import 'package:doctor_plus_app/core/theme/app_colors.dart';
-import 'package:doctor_plus_app/core/theme/app_icons.dart';
 import 'package:doctor_plus_app/views/content/components/header_local_component.dart';
+import 'package:doctor_plus_app/views/content/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ContentPage extends StatelessWidget {
   @override
@@ -11,8 +11,38 @@ class ContentPage extends StatelessWidget {
       children: [
         HeaderLocationComponent(
           location: 'Rua Epitácio Pessoa, 10',
-        )
+        ),
+        Container(
+          child: Column(
+            children: <Widget>[
+              buildLoginBtn(context),
+            ],
+          ),
+        ),
       ],
     ));
+  }
+
+  Widget buildLoginBtn(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(150),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        },
+        child: Text(
+          'Sair',
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
