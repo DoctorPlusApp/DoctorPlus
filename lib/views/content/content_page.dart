@@ -1,12 +1,20 @@
 import 'package:doctor_plus_app/views/content/components/header_local_component.dart';
 import 'package:doctor_plus_app/views/content/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ContentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Image.asset(
+            'assets/logos/doctorPlusLogo.png',
+            fit: BoxFit.fill,
+            height: 50,
+          ),
+          backgroundColor: Colors.white,
+        ),
         body: Column(
       children: [
         HeaderLocationComponent(
