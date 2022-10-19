@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "962276706746",
+    "project_id": "doctorplus-paciv",
+    "storage_bucket": "doctorplus-paciv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962276706746:android:1343800e9b392458ee7583",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962276706746-ob0ihe3cqg6k0scsi9ng83ctqgsiang2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGAvD2jOq7RN_KDRddyLxfYDQ6wMGJ_es"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962276706746-ob0ihe3cqg6k0scsi9ng83ctqgsiang2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
