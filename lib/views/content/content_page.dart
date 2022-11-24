@@ -1,6 +1,7 @@
 import 'package:doctor_plus_app/utilities/constants.dart';
 import 'package:doctor_plus_app/views/content/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import '/utilities/constants.dart';
 import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/search_page.dart';
@@ -25,6 +26,22 @@ class _ContentPageState extends State<ContentPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      switch (currentIndex) {
+        // case 0:
+        //   print('entrou no case 0 $currentIndex');
+        //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContentPage()));
+        //   break;
+        case 2:
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalendarPage()));
+          break;
+        case 3:
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
+          break;
+      }
+    });
+
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -40,7 +57,7 @@ class _ContentPageState extends State<ContentPage> {
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(8),
             child: RichText(
               text: TextSpan(
                 children: [
