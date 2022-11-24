@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/utilities/constants.dart';
 import 'package:doctor_plus_app/views/content/content_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,12 +10,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final password = '';
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    passwordController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
   Widget _buildEmailTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Email',
+        TextField(
+          controller: emailController,
+          cursorColor: Colors.white,
+          decoration: InputDecoration(labelText: 'Email'),
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -48,9 +63,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Senha',
+        TextField(
+          controller: passwordController,
+          cursorColor: Colors.white,
           style: kLabelStyle,
+          decoration: InputDecoration(labelText: 'Senha'),
+          onChanged: (value) {
+            print('First text field: $value');
+          },
         ),
         SizedBox(height: 10.0),
         Container(
@@ -99,6 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
+          // print('TEST: ${emailController.text}');
+          signIn();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ContentPage()),
@@ -125,6 +147,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text, password: passwordController.text);
   }
 
   Widget _buildSignupBtn() {
