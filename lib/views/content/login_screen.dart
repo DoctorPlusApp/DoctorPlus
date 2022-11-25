@@ -26,10 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TextField(
-          controller: emailController,
-          cursorColor: Colors.white,
-          decoration: InputDecoration(labelText: 'Email'),
+        Text(
+          'Email',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -38,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.black,
@@ -63,14 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TextField(
-          controller: passwordController,
-          cursorColor: Colors.white,
+        Text(
+          'Senha',
           style: kLabelStyle,
-          decoration: InputDecoration(labelText: 'Senha'),
-          onChanged: (value) {
-            print('First text field: $value');
-          },
         ),
         SizedBox(height: 10.0),
         Container(
@@ -78,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passwordController,
             obscureText: true,
             style: TextStyle(
               color: Colors.black,
@@ -119,12 +114,18 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          // print('TEST: ${emailController.text}');
-          signIn();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ContentPage()),
-          );
+          print('TEST: ${emailController.text}');
+          print('TEST2: ${passwordController.text}');
+           
+          signIn().then((value) => {
+            print('TEST3: ${value}'),
+            if (value == null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ContentPage()),
+              )
+            }
+          });
         },
         style: ElevatedButton.styleFrom(
           primary: Colors.teal,
@@ -150,8 +151,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future signIn() async {
+    try {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      return e;
+    }
   }
 
   Widget _buildSignupBtn() {
