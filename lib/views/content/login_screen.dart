@@ -116,16 +116,17 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           print('TEST: ${emailController.text}');
           print('TEST2: ${passwordController.text}');
-           
+
           signIn().then((value) => {
-            print('TEST3: ${value}'),
-            if (value == null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ContentPage()),
-              )
-            }
-          });
+                print('TEST3: ${value}'),
+                if (value == null)
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ContentPage()),
+                    )
+                  }
+              });
         },
         style: ElevatedButton.styleFrom(
           primary: Colors.teal,
@@ -152,14 +153,41 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     try {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
     } on FirebaseAuthException catch (e) {
-
       if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text('Nenhum usuário foi encontrado para este email e senha!'),
+        ));
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Senha Incorreta, Tente Novamente!'),
+        ));
+        print('Senha Incorreta, Tente Novamente!');
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Email Inválido.'),
+        ));
+        print('Email Inválido.');
+      } else if (e.code == 'too-many-requests') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text('Muitas tentativas de login, tente novamente mais tarde.'),
+        ));
+        print('Muitas tentativas de login, tente novamente mais tarde.');
+      } else if (e.code == 'network-request-failed') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Sem conexão com a internet.'),
+        ));
+        print('Sem conexão com a internet.');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Erro desconhecido, tente novamente mais tarde.'),
+        ));
+        print('Erro desconhecido, tente novamente mais tarde.');
       }
       return e;
     }
