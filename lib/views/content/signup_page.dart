@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/utilities/constants.dart';
-import 'package:doctor_plus_app/views/content/content_page.dart';
-import 'package:doctor_plus_app/views/content/signup_page.dart';
+import 'package:doctor_plus_app/views/content/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
   final password = '';
@@ -95,37 +95,25 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      padding: EdgeInsets.only(right: 0.0),
-      child: TextButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        child: Text(
-          'Esqueceu a senha?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoginBtn() {
+  Widget _buildSignUpBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          print('TEST: ${emailController.text}');
-          print('TEST2: ${passwordController.text}');
-
-          signIn().then((value) => {
-                print('TEST3: ${value}'),
-                if (value == null)
+          createAccount().then((value) async => {
+                if (value.user != null)
                   {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ContentPage()),
-                    )
+                    _showToast(),
+                    await Future.delayed(const Duration(seconds: 2), () {
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
+                      }
+                    })
                   }
               });
         },
@@ -139,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
           elevation: 5.0,
         ),
         child: Text(
-          'Acessar',
+          'Criar Conta',
           style: TextStyle(
             color: Colors.white,
             letterSpacing: 1.5,
@@ -152,79 +140,40 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future signIn() async {
+  Future createAccount() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+      return userCredential;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code == 'weak-password') {
+        print('Esta senha é muito fraca (Deve conter mais de 6 caracteres).');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content:
-              Text('Nenhum usuário foi encontrado para este email e senha!'),
+          content: Text(
+              'Esta senha é muito fraca (Deve conter mais de 6 caracteres).'),
         ));
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Senha Incorreta, Tente Novamente!'),
+          content: Text('Este email já está sendo utilizado.'),
         ));
-        print('Senha Incorreta, Tente Novamente!');
+        print('Está conta já existe para este email.');
       } else if (e.code == 'invalid-email') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Email Inválido.'),
+          content: Text('Este email é inválido.'),
         ));
-        print('Email Inválido.');
-      } else if (e.code == 'too-many-requests') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content:
-              Text('Muitas tentativas de login, tente novamente mais tarde.'),
-        ));
-        print('Muitas tentativas de login, tente novamente mais tarde.');
-      } else if (e.code == 'network-request-failed') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Sem conexão com a internet.'),
-        ));
-        print('Sem conexão com a internet.');
+        print('Este email é inválido.');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Erro desconhecido, tente novamente mais tarde.'),
+          content: Text('Erro ao criar conta.'),
         ));
-        print('Erro desconhecido, tente novamente mais tarde.');
+        print('Erro ao criar conta.');
       }
-      return e;
-    }
-  }
 
-  Widget _buildSignupBtn() {
-    return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SignUpScreen()),
-        )
-      },
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Não tem uma conta? ',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            TextSpan(
-              text: 'Cadastre-se',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+      return e.code;
+    } catch (e) {
+      print('ERROR CREATE ACCOUNT: $e');
+    }
   }
 
   @override
@@ -259,11 +208,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 120.0,
+                    vertical: 90.0,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Text(
+                        'Cadastro de Usuário',
+                        style: TextStyle(
+                          color: Colors.black,
+                          letterSpacing: 1.5,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'OpenSans',
+                        ),
+                      ),
                       Image.asset(
                         'assets/logos/doctorPlusLogo.png',
                         height: 200,
@@ -275,9 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 30.0,
                       ),
                       _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
-                      _buildLoginBtn(),
-                      _buildSignupBtn(),
+                      _buildSignUpBtn(),
                     ],
                   ),
                 ),
@@ -286,6 +243,41 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Usuário criado com sucesso!"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
     );
   }
 }
