@@ -1,8 +1,6 @@
 import 'package:doctor_plus_app/utilities/constants.dart';
-import 'package:doctor_plus_app/views/content/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import '/utilities/constants.dart';
 import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/search_page.dart';
 import 'package:doctor_plus_app/views/content/calendar_page.dart';
@@ -156,13 +154,6 @@ class _ContentPageState extends State<ContentPage> {
               ),
             ],
           ),
-          Container(
-            child: Column(
-              children: <Widget>[
-                buildLoginBtn(context),
-              ],
-            ),
-          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -193,29 +184,6 @@ class _ContentPageState extends State<ContentPage> {
             backgroundColor: Colors.white,
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildLoginBtn(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(80),
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          );
-        },
-        child: Text(
-          'Sair',
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
       ),
     );
   }
