@@ -1,9 +1,9 @@
 import 'package:doctor_plus_app/utilities/constants.dart';
+import 'package:doctor_plus_app/views/content/reservations_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/search_page.dart';
-import 'package:doctor_plus_app/views/content/calendar_page.dart';
 
 class ContentPage extends StatefulWidget {
   @override
@@ -21,14 +21,13 @@ class _ContentPageState extends State<ContentPage> {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchPage()));
           break;
         case 2:
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalendarPage()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReservationsPage()));
           break;
         case 3:
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
           break;
       }
     });
-
 
     return Scaffold(
       appBar: AppBar(

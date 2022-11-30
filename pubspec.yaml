@@ -30,5 +30,6 @@ flutter:
     - "assets/fonts/"
     - "assets/logos/"
     - "assets/icons/contentPage/"
+    - "assets/icons/reservationPage/"
 
   uses-material-design: true
