@@ -12,24 +12,14 @@ class ContentPage extends StatefulWidget {
 
 class _ContentPageState extends State<ContentPage> {
   int currentIndex = 0;
-  final Screens = [
-    // Center(child: Text('ContentPage', style: TextStyle(fontSize: 60))),
-    // Center(child: Text('Search', style: TextStyle(fontSize: 60))),
-    // Center(child: Text('Calendar', style: TextStyle(fontSize: 60))),
-    // Center(child: Text('Profile', style: TextStyle(fontSize: 60))),
-    ContentPage(),
-    SearchPage(),
-    CalendarPage(),
-    ProfilePage(),
-  ];
+
   @override
   Widget build(BuildContext context) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       switch (currentIndex) {
-        // case 0:
-        //   print('entrou no case 0 $currentIndex');
-        //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContentPage()));
-        //   break;
+        case 1:
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchPage()));
+          break;
         case 2:
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalendarPage()));
           break;
