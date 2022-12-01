@@ -6,8 +6,8 @@ import 'package:flutter/scheduler.dart';
 
 // Ainda sendo desenvolvido... dados mockados
 
-class ReservationsPage extends StatefulWidget{
-  _ReservationsPage createState ()=> _ReservationsPage();
+class ReservationsPage extends StatefulWidget {
+  _ReservationsPage createState() => _ReservationsPage();
 }
 
 class _ReservationsPage extends State<ReservationsPage> {
@@ -243,7 +243,7 @@ class _ReservationsPage extends State<ReservationsPage> {
                           width: 32 * fem,
                           height: 32 * fem,
                           child: Image.asset(
-                            'assets/visualizao-de-mdicos/images/location.png',
+                            'assets/icons/reservationPage/location.png',
                             fit: BoxFit.cover,
                           ),
                         ),
