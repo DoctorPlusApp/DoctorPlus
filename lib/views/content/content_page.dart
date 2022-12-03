@@ -1,9 +1,9 @@
 import 'package:doctor_plus_app/utilities/constants.dart';
+import 'package:doctor_plus_app/views/content/reservations_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/search_page.dart';
-import 'package:doctor_plus_app/views/content/calendar_page.dart';
 
 class ContentPage extends StatefulWidget {
   @override
@@ -31,7 +31,7 @@ class _ContentPageState extends State<ContentPage> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => CalendarPage(),
+              builder: (context) => ReservationsPage(),
             ),
             (route) => false,
           );

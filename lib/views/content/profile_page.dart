@@ -1,5 +1,5 @@
-import 'package:doctor_plus_app/views/content/calendar_page.dart';
 import 'package:doctor_plus_app/views/content/content_page.dart';
+import 'package:doctor_plus_app/views/content/reservations_page.dart';
 import 'package:doctor_plus_app/views/content/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,7 +37,7 @@ class _ProfilePage extends State<ProfilePage> {
           break;
         case 2:
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => CalendarPage()));
+              .push(MaterialPageRoute(builder: (context) => ReservationsPage()));
           break;
       }
     });
