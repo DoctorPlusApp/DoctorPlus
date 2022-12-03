@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/content_page.dart';
-import 'package:doctor_plus_app/views/content/calendar_page.dart';
 
 class SearchPage extends StatefulWidget {
   @override
