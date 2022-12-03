@@ -18,17 +18,35 @@ class _ContentPageState extends State<ContentPage> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       switch (currentIndex) {
         case 1:
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchPage()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPage(),
+            ),
+            (route) => false,
+          );
+
           break;
         case 2:
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CalendarPage()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CalendarPage(),
+            ),
+            (route) => false,
+          );
           break;
         case 3:
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(),
+            ),
+            (route) => false,
+          );
           break;
       }
     });
-
 
     return Scaffold(
       appBar: AppBar(
