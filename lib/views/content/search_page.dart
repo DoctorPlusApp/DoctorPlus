@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_plus_app/utilities/constants.dart';
+import 'package:doctor_plus_app/views/content/booking_page.dart';
 import 'package:doctor_plus_app/views/content/reservations_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -123,6 +124,16 @@ class _SearchPageState extends State<SearchPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BookingPage(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text('Reservar')),
                                 Divider(),
                                 Text(
                                   consultorio.data()['nome'],
