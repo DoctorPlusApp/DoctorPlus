@@ -117,33 +117,34 @@ class _SearchPageState extends State<SearchPage> {
                           .toString()
                           .toLowerCase()
                           .contains(search.toLowerCase()))
-                      .map((consultorio) => Padding(
-                            padding: const EdgeInsets.only(
-                                left: 14, right: 14, top: 5, bottom: 5),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => BookingPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Text('Reservar')),
-                                Divider(),
-                                Text(
-                                  consultorio.data()['nome'],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                      .map((consultorio) => GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BookingPage(id: consultorio.id),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 14, right: 14, top: 5, bottom: 5),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Divider(),
+                                  Text(
+                                    consultorio.data()['nome'],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(consultorio.data()['endereco']),
-                                Text(consultorio.data()['telefone'].toString()),
-                              ],
+                                  Text(consultorio.data()['endereco']),
+                                  Text(consultorio
+                                      .data()['telefone']
+                                      .toString()),
+                                ],
+                              ),
                             ),
                           ))
                       .toList(),
