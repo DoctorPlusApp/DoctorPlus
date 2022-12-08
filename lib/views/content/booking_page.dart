@@ -111,7 +111,12 @@ class _BookingPageState extends State<BookingPage> {
                                 "consultorio": consultorio.data.reference,
                                 "date": DateTime.now(),
                                 "userId":
-                                    FirebaseAuth.instance.currentUser.email
+                                    FirebaseAuth.instance.currentUser.email,
+                                "nomeConsultorio":
+                                    consultorio.data.data()["nome"].toString(),
+                                "enderecoConsultorio": consultorio.data
+                                    .data()["endereco"]
+                                    .toString(),
                               });
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
