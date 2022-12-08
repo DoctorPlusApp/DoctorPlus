@@ -8,11 +8,18 @@ import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/content_page.dart';
 
 class SearchPage extends StatefulWidget {
+  final String arguments;
+
+  SearchPage({this.arguments});
+
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<SearchPage> createState() => _SearchPageState(arguments);
 }
 
 class _SearchPageState extends State<SearchPage> {
+  String arguments;
+  _SearchPageState(this.arguments);
+
   int currentIndex = 1;
   String search = '';
   Future<QuerySnapshot<Map<String, dynamic>>> clinicasFuture;
@@ -20,14 +27,27 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-
-    FirebaseFirestore.instance.collection('consultorios').get().then(
-      (value) {
-        setState(() {
-          clinicasFuture = Future.value(value);
-        });
-      },
-    );
+    if (arguments != null) {
+      FirebaseFirestore.instance
+          .collection('consultorios')
+          .where('tipo', isEqualTo: arguments)
+          .get()
+          .then(
+        (value) {
+          setState(() {
+            clinicasFuture = Future.value(value);
+          });
+        },
+      );
+    } else {
+      FirebaseFirestore.instance.collection('consultorios').get().then(
+        (value) {
+          setState(() {
+            clinicasFuture = Future.value(value);
+          });
+        },
+      );
+    }
   }
 
   @override

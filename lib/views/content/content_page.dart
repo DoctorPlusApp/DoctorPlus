@@ -89,6 +89,8 @@ class _ContentPageState extends State<ContentPage> {
                 color: Colors.black,
                 fontFamily: 'OpenSans',
               ),
+              readOnly: true,
+              enabled: false,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14.0, left: 5),
@@ -96,8 +98,8 @@ class _ContentPageState extends State<ContentPage> {
                   Icons.add_location_rounded,
                   color: Colors.black12,
                 ),
-                hintText: 'Em qual cidade você está?',
-                hintStyle: kHintTextStyle,
+                hintText: 'Jaraguá do Sul, SC',
+                // hintStyle: kHintTextStyle,
               ),
             ),
           ),
@@ -108,17 +110,47 @@ class _ContentPageState extends State<ContentPage> {
                 icon: Image.asset(
                     'assets/icons/contentPage/general-practitioner.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: 'clinico-geral',
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/cardiologist.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: 'cardiologia',
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/dermatologist.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: 'dermatologia',
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
             ],
           ),
@@ -128,17 +160,47 @@ class _ContentPageState extends State<ContentPage> {
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/orthopedist.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: null,
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/pediatrician.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: 'pediatria',
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/gynecologist.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: 'ginecologia',
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
             ],
           ),
@@ -148,17 +210,47 @@ class _ContentPageState extends State<ContentPage> {
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/orthodontics.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: null,
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/nutrition.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: null,
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset('assets/icons/contentPage/infectologist.png'),
                 iconSize: 110,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                        arguments: null,
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
             ],
           ),
