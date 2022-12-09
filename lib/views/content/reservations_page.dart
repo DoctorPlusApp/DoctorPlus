@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_plus_app/views/content/content_page.dart';
+import 'package:doctor_plus_app/views/content/profile_page.dart';
 import 'package:doctor_plus_app/views/content/search_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -32,12 +33,32 @@ class _ReservationsPage extends State<ReservationsPage> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       switch (currentIndex) {
         case 0:
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ContentPage()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ContentPage(),
+            ),
+            (route) => false,
+          );
+
           break;
         case 1:
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SearchPage()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPage(),
+            ),
+            (route) => false,
+          );
+          break;
+        case 3:
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(),
+            ),
+            (route) => false,
+          );
           break;
       }
     });
